@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+
+  --color-mango-gold: #F6C000;
+  --color-mango-orange: #F08A1A;
+  --color-mango-red: #E52B1A;
+  --color-mango-green: #95B300;
+  --color-mango-pink: #D9007D;
+  --color-mango-black: #000000;
+  --color-mango-dark: #0a0a0a;
+  --color-mango-gray: #121212;
+  --color-mango-lightgray: #1e1e1e;
+  
+  --shadow-neon-gold: 0 0 10px rgba(246, 192, 0, 0.4), 0 0 20px rgba(246, 192, 0, 0.15);
+  --shadow-neon-red: 0 0 10px rgba(229, 43, 26, 0.4), 0 0 20px rgba(229, 43, 26, 0.15);
+  --shadow-neon-pink: 0 0 10px rgba(217, 0, 125, 0.4), 0 0 20px rgba(217, 0, 125, 0.15);
+  --shadow-neon-orange: 0 0 10px rgba(240, 138, 26, 0.4), 0 0 20px rgba(240, 138, 26, 0.15);
+}
+
+/* Custom styles and scrollbar */
+html {
+  scroll-behavior: smooth;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-mango-black);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(18, 18, 18, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-premium {
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(10, 10, 10, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(246, 192, 0, 0.12);
+}
+
+/* Glow effects */
+.hover-neon-gold {
+  transition: all 0.3s ease-in-out;
+}
+.hover-neon-gold:hover {
+  box-shadow: 0 0 15px rgba(246, 192, 0, 0.5);
+  border-color: #F6C000;
+}
+
+.hover-neon-red {
+  transition: all 0.3s ease-in-out;
+}
+.hover-neon-red:hover {
+  box-shadow: 0 0 15px rgba(229, 43, 26, 0.5);
+  border-color: #E52B1A;
+}
+
+.hover-neon-orange {
+  transition: all 0.3s ease-in-out;
+}
+.hover-neon-orange:hover {
+  box-shadow: 0 0 15px rgba(240, 138, 26, 0.5);
+  border-color: #F08A1A;
+}
+
+/* Custom background grid */
+.grid-bg {
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(246, 192, 0, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(229, 43, 26, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(217, 0, 125, 0.04) 0%, transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Animated sliding waves keyframes */
+@keyframes slide-wave {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes slide-wave-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+

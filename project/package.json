@@ -1,0 +1,12 @@
+{
+  "name": "music-mango-workspace",
+  "version": "1.0.0",
+  "description": "Music Mango Workspace - React + Vite Frontend & Node.js Express Backend",
+  "scripts": {
+    "install:all": "npm install --prefix frontend && npm install --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "build:frontend": "npm run build --prefix frontend",
+    "start:backend": "npm start --prefix backend"
+  }
+}

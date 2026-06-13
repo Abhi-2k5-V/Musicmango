@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard | EduStream Student Management{% endblock %}
+
+{% block content %}
+<!-- Top Header Section -->
+<div class="row align-items-center mb-4 g-3">
+    <div class="col-md-6">
+        <h1 class="h2 mb-1 fw-700">Dashboard</h1>
+        <p class="text-muted mb-0">Manage and monitor students records efficiently</p>
+    </div>
+    <div class="col-md-6">
+        <!-- Search Form -->
+        <form method="GET" action="{{ url_for('index') }}" class="search-container d-flex align-items-center">
+            <i class="fa-solid fa-magnifying-glass text-muted ms-2 me-2"></i>
+            <input type="text" name="search" class="form-control search-input bg-transparent" placeholder="Search by ID, Name, Course, Email..." value="{{ search_query }}">
+            {% if search_query %}
+                <a href="{{ url_for('index') }}" class="btn btn-link text-muted p-0 me-2 text-decoration-none" title="Clear Search">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+            {% endif %}
+            <button type="submit" class="btn btn-indigo text-white px-3 rounded-pill">Search</button>
+        </form>
+    </div>
+</div>
+
+<!-- Statistics Widgets Grid -->
+<div class="row mb-4 g-3">
+    <!-- Stat Card 1 -->
+    <div class="col-md-4">
+        <div class="stats-card d-flex align-items-center justify-content-between">
+            <div>
+                <span class="text-muted fw-500 fs-7 d-block mb-1">Total Students</span>
+                <span class="h3 mb-0 fw-700">{{ stats.total_students }}</span>
+            </div>
+            <div class="stats-icon-container stats-icon-blue">
+                <i class="fa-solid fa-users"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Stat Card 2 -->
+    <div class="col-md-4">
+        <div class="stats-card card-accent d-flex align-items-center justify-content-between">
+            <div>
+                <span class="text-muted fw-500 fs-7 d-block mb-1">Unique Courses</span>
+                <span class="h3 mb-0 fw-700">{{ stats.total_courses }}</span>
+            </div>
+            <div class="stats-icon-container stats-icon-pink">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Stat Card 3 -->
+    <div class="col-md-4">
+        <div class="stats-card d-flex align-items-center justify-content-between">
+            <div>
+                <span class="text-muted fw-500 fs-7 d-block mb-1">Top Course</span>
+                <span class="h3 mb-0 fw-700" style="font-size: 1.25rem; word-break: break-all;" title="{{ stats.top_course }}">{{ stats.top_course }}</span>
+                {% if stats.top_course_count > 0 %}
+                    <small class="text-muted d-block mt-1">{{ stats.top_course_count }} student(s) enrolled</small>
+                {% endif %}
+            </div>
+            <div class="stats-icon-container stats-icon-green">
+                <i class="fa-solid fa-star"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Active Search Results Indicator -->
+{% if search_query %}
+    <div class="mb-3 d-flex align-items-center justify-content-between">
+        <span class="badge bg-indigo text-white px-3 py-2 fs-6 rounded-pill">
+            <i class="fa-solid fa-filter me-1"></i> Search query: "{{ search_query }}"
+        </span>
+        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+            <i class="fa-solid fa-arrow-rotate-left me-1"></i> Clear Search
+        </a>
+    </div>
+{% endif %}
+
+<!-- Student Table Container -->
+<div class="student-card-container">
+    {% if students %}
+        <div class="table-responsive">
+            <table class="table custom-table align-middle">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">Student ID</th>
+                        <th style="width: 20%;">Name</th>
+                        <th style="width: 25%;">Email</th>
+                        <th style="width: 15%;">Phone</th>
+                        <th style="width: 15%;">Course</th>
+                        <th style="width: 10%;" class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                        <tr>
+                            <td>
+                                <span class="fw-600 text-indigo font-monospace">{{ student.student_id }}</span>
+                            </td>
+                            <td>
+                                <div class="fw-600">{{ student.name }}</div>
+                                <div class="text-muted fs-xs mt-0.5">DOB: {{ student.dob }}</div>
+                            </td>
+                            <td>
+                                <a href="mailto:{{ student.email }}" class="text-decoration-none text-muted hover-indigo">
+                                    <i class="fa-regular fa-envelope me-1 text-primary"></i> {{ student.email }}
+                                </a>
+                            </td>
+                            <td>
+                                <span class="text-muted"><i class="fa-solid fa-phone me-1 text-secondary"></i> {{ student.phone }}</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-course">{{ student.course }}</span>
+                            </td>
+                            <td class="text-end">
+                                <div class="d-inline-flex gap-2">
+                                    <a href="{{ url_for('edit_student', id=student.id) }}" class="action-btn action-btn-edit" title="Edit Student">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <button type="button" class="action-btn action-btn-delete" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" data-id="{{ student.id }}" data-name="{{ student.name }}" data-student-id="{{ student.student_id }}" title="Delete Student">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <!-- Premium Empty State -->
+        <div class="empty-state">
+            <div class="empty-state-icon">
+                {% if search_query %}
+                    <i class="fa-solid fa-magnifying-glass-minus"></i>
+                {% else %}
+                    <i class="fa-solid fa-address-book"></i>
+                {% endif %}
+            </div>
+            <h3>{% if search_query %}No search results found{% else %}No student records exist{% endif %}</h3>
+            <p class="text-muted col-md-6 mx-auto mb-4">
+                {% if search_query %}
+                    We couldn't find any student matching "{{ search_query }}". Try adjusting your keyword or clear the search filter.
+                {% else %}
+                    Start by registering the first student to seed database entries and configure schedules, course statistics, and academic directories.
+                {% endif %}
+            </p>
+            <div>
+                {% if search_query %}
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-indigo px-4 py-2 rounded-pill me-2">Clear Search Filter</a>
+                {% endif %}
+                <a href="{{ url_for('add_student') }}" class="btn btn-indigo text-white px-4 py-2 rounded-pill shadow-sm">
+                    <i class="fa-solid fa-user-plus me-1"></i> Add Student Record
+                </a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Modal: Dynamic Delete Confirmation -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 16px;">
+            <div class="modal-header bg-danger text-white border-0 py-3" style="border-top-left-radius: 16px; border-top-right-radius: 16px;">
+                <h5 class="modal-title fw-600" id="deleteConfirmModalLabel">
+                    <i class="fa-solid fa-triangle-exclamation me-1"></i> Confirm Delete
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-4">
+                <p class="mb-2 fs-5">Are you sure you want to delete this student record?</p>
+                <div class="p-3 bg-light rounded-3 mb-3 border">
+                    <div class="mb-1"><span class="text-muted fw-500">Student Name:</span> <strong id="modal-student-name" class="text-dark"></strong></div>
+                    <div><span class="text-muted fw-500">Student ID:</span> <code id="modal-student-id" class="text-danger"></code></div>
+                </div>
+                <p class="text-danger small mb-0">
+                    <i class="fa-solid fa-circle-info me-1"></i> This action is permanent and cannot be undone. All database records associated with this student will be destroyed.
+                </p>
+            </div>
+            <div class="modal-footer border-0 bg-light py-2" style="border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;">
+                <button type="button" class="btn btn-outline-secondary px-4 rounded-pill" data-bs-modal="dismiss" data-bs-dismiss="modal">Cancel</button>
+                <form id="delete-form" method="POST" action="">
+                    <button type="submit" class="btn btn-danger px-4 rounded-pill">Delete Permanently</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
