@@ -35,45 +35,6 @@ export default function Navbar() {
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
       isScrolled ? 'glass py-2.5 shadow-lg' : 'bg-transparent py-4'
     }`}>
-      {/* Contact Info Top Bar (smooth transition on scroll) */}
-      <div className={`hidden md:block border-b border-white/5 transition-all duration-300 overflow-hidden ${
-        isScrolled ? 'max-h-0 opacity-0 mb-0' : 'max-h-10 opacity-100 mb-2 pb-2'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs text-gray-400 font-light">
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5">
-              <span className="text-mango-gold text-xs">📞</span>
-              <a href="tel:+919495636565" className="hover:text-mango-gold transition-colors font-medium">+91 9495636565</a>
-              <span className="text-gray-700">|</span>
-              <a href="tel:+919846495782" className="hover:text-mango-gold transition-colors font-medium">+91 9846495782</a>
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="text-mango-orange text-xs">📧</span>
-              <a href="mailto:musicmangoaudios@gmail.com" className="hover:text-mango-orange transition-colors font-medium">musicmangoaudios@gmail.com</a>
-            </span>
-          </div>
-          <div className="flex items-center gap-4">
-            <a 
-              href="https://www.instagram.com/music_mango_official" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="hover:text-mango-pink transition-colors font-medium"
-            >
-              Instagram
-            </a>
-            <span className="text-gray-700">|</span>
-            <a 
-              href="https://wa.me/919846495782" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="hover:text-mango-green transition-colors font-medium"
-            >
-              WhatsApp Us
-            </a>
-          </div>
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}

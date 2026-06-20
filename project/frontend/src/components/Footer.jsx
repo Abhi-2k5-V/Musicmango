@@ -1,14 +1,5 @@
 import React from 'react';
-import { Mail, Phone } from 'lucide-react';
 import logo from '../assets/logo.png';
-
-const Instagram = ({ className }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-  </svg>
-);
 
 export default function Footer() {
   const handleLinkClick = (e, href) => {
@@ -19,16 +10,7 @@ export default function Footer() {
     }
   };
 
-  const handleGetDirections = (e) => {
-    e.preventDefault();
-    const isApple = typeof navigator !== 'undefined' && 
-      (/iPad|iPhone|iPod|Macintosh|MacIntel|MacPPC|Mac68K/gi.test(navigator.userAgent || '') ||
-       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
-    const url = isApple
-      ? 'https://maps.apple.com/?ll=10.241333,76.264611'
-      : 'https://maps.google.com/?q=10.241333,76.264611';
-    window.open(url, '_blank');
-  };
+
 
   return (
     <footer className="bg-mango-black border-t border-white/5 pt-16 pb-8 relative overflow-hidden">
@@ -65,24 +47,18 @@ export default function Footer() {
             >
               💬 Chat on WhatsApp
             </a>
-            {/* Get Directions */}
-            <button 
-              onClick={handleGetDirections}
-              className="px-6 py-3.5 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold rounded-xl text-xs uppercase tracking-wider hover:border-mango-orange hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
-            >
-              📍 Get Directions
-            </button>
-            {/* Send Email */}
+            {/* Go to Contact Page */}
             <a 
-              href="mailto:musicmangoaudios@gmail.com"
-              className="px-6 py-3.5 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold rounded-xl text-xs uppercase tracking-wider hover:border-mango-pink hover:-translate-y-0.5 transition-all duration-300"
+              href="#contact"
+              onClick={(e) => handleLinkClick(e, '#contact')}
+              className="px-6 py-3.5 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold rounded-xl text-xs uppercase tracking-wider hover:border-mango-orange hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
             >
-              📧 Send Email
+              ✉ Send an Inquiry
             </a>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
           
           {/* Brand/Logo Column */}
           <div className="flex flex-col gap-4">
@@ -126,54 +102,6 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
- 
-          {/* Contact Details Column */}
-          <div>
-            <h4 className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider mb-6">Contact Info</h4>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-gray-400 text-xs sm:text-sm font-light">
-                <span className="text-mango-gold flex-shrink-0 mt-0.5">📍</span>
-                <div>
-                  <p className="font-semibold text-white text-xs">Studio Location</p>
-                  <p className="text-[11px] text-gray-500 mt-0.5">10°14'28.8"N 76°15'52.6"E</p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3 text-gray-400 text-xs sm:text-sm font-light">
-                <span className="text-mango-gold flex-shrink-0 mt-0.5">📞</span>
-                <div className="flex flex-col">
-                  <a href="tel:+919495636565" className="hover:text-white transition-colors font-medium">+91 9495636565</a>
-                  <a href="tel:+919846495782" className="hover:text-white transition-colors font-medium">+91 9846495782</a>
-                </div>
-              </li>
-              <li className="flex items-start gap-3 text-gray-400 text-xs sm:text-sm font-light">
-                <span className="text-mango-green flex-shrink-0 mt-0.5">💬</span>
-                <a href="https://wa.me/919846495782" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors font-medium">WhatsApp: +91 9846495782</a>
-              </li>
-              <li className="flex items-center gap-3 text-gray-400 text-xs sm:text-sm font-light">
-                <span className="text-mango-orange flex-shrink-0">📧</span>
-                <a href="mailto:musicmangoaudios@gmail.com" className="hover:text-white transition-colors font-medium truncate">musicmangoaudios@gmail.com</a>
-              </li>
-            </ul>
-          </div>
- 
-          {/* Connect Column */}
-          <div>
-            <h4 className="text-white text-xs sm:text-sm font-bold uppercase tracking-wider mb-6">Socials</h4>
-            <p className="text-gray-400 text-xs sm:text-sm font-light mb-4 leading-relaxed">
-              Stay updated with our latest releases and behind-the-scenes on social media.
-            </p>
-            <div className="flex items-center gap-3">
-              <a 
-                href="https://www.instagram.com/music_mango_official" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-mango-pink flex items-center justify-center text-gray-400 hover:text-mango-pink transition-all duration-300 hover:scale-105"
-                aria-label="Instagram Link"
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-            </div>
           </div>
  
         </div>
